@@ -1,7 +1,8 @@
 package domain;
 
 public interface PrestationSupplementaire {
-    String getId();
+
+    int getId();
     String getNom();
     String getType();
     double getPrix();

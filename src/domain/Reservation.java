@@ -4,24 +4,39 @@ package domain;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Reservation {
-    private String ID;
+    private int id;
     private LocalDateTime dateHeure;
     private double caution;
     private double paiement;
 
     // Relations avec Client et Activité
     private Client client;
-    private List<Activite> activites;
+    private Activite activite;
+    List<Materiel> Materiels = new ArrayList<>();
 
-    public Reservation(String ID, LocalDateTime dateHeure, double caution, double paiement, Client client, List<Activite> activites) {
-        this.ID = ID;
+    public Reservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+
         this.dateHeure = dateHeure;
         this.caution = caution;
         this.paiement = paiement;
         this.client = client;
-        this.activites = activites;
+        this.activite = activite;
     }
+    // constructeur sans caution pour les clients qui ont déja khalas
+    public Reservation(LocalDateTime dateHeure,double paiement, Client client, Activite activite) {
+
+        this.dateHeure = dateHeure;
+        this.caution = caution;
+        this.paiement = paiement;
+        this.client = client;
+        this.activite = activite;
+    }
+    public void setMateriel(Materiel m) {
+        this.Materiels.add(m);
+    }
+
 }
 
