@@ -15,6 +15,8 @@ public class Reservation {
     // Relations avec Client et Activité
     private Client client;
     private Activite activite;
+
+    private List<PrestationSupplementaire> prestations = new ArrayList<>();
     List<Materiel> Materiels = new ArrayList<>();
 
     public Reservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
@@ -37,6 +39,9 @@ public class Reservation {
     public void setMateriel(Materiel m) {
         this.Materiels.add(m);
     }
+
+    public void addPrestations(PrestationSupplementaire p) {this.prestations.add(p);}
+
 
 }
 

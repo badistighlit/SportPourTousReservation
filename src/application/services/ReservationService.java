@@ -1,23 +1,35 @@
 package application.services;
 
-import domain.Activite;
-import domain.Client;
-import domain.Materiel;
-import domain.Reservation;
+import application.port.out.ReservationRepository;
+import domain.*;
 
 import java.time.LocalDateTime;
 
 public class ReservationService {
-    public Reservation createFirnstReservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
-
-        return new Reservation(dateHeure,caution,paiement,client,activite);
-    }
-    public Reservation createReservation(LocalDateTime dateHeure, double paiement, Client client, Activite activite) {
-
-        return new Reservation(dateHeure,paiement,client,activite);
+    private Reservation reservation;
+    private ReservationRepository ReservationRepository;
+    public ReservationService(ReservationRepository ReservationRepository){
+        this.ReservationRepository=ReservationRepository;
     }
 
-    public void setMateriels(Materiel m) {}
+    public void createFirnstReservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+        this.reservation= new Reservation(dateHeure,caution,paiement,client,activite);
+
+    }
+    public void createReservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+
+        this.reservation = new Reservation(dateHeure,paiement,client,activite);
+    }
+
+    public void setMateriels(Materiel m) {
+        this.reservation.setMateriel(m);
+
+    }
+
+    public void setPrestation(PrestationSupplementaire p ){
+        this.reservation.addPrestations(p);
+    }
+
 
 
 }
