@@ -3,15 +3,18 @@ package application.services;
 import application.port.out.ClientRepository;
 import domain.Client;
 
-public class CreateAccountService {
+public class ClientService {
 
     private Client client;
     final private ClientRepository clientRepository;
-    public CreateAccountService(ClientRepository clientRepository){
+    public ClientService(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
     }
 
-    public void createClient(Client client) {
+    public Client createClient(int id, String nom, String prenom, String adresseMail, String num) {
+
+        Client client = new Client(id, nom, prenom, adresseMail, num);
+
         if (client.getNom() == null || client.getNom().isEmpty() ||
                 client.getPrenom() == null || client.getPrenom().isEmpty() ||
                 client.getAdresseMail() == null || client.getAdresseMail().isEmpty() ||
@@ -24,6 +27,7 @@ public class CreateAccountService {
         }
 
         clientRepository.save(client);
+        return client;
     }
 
 }

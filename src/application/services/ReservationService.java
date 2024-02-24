@@ -12,11 +12,11 @@ public class ReservationService {
         this.ReservationRepository=ReservationRepository;
     }
 
-    public void createFirnstReservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+    public void createFirnstReservation(LocalDateTime dateHeure, double paiement, Client client, Activite activite, double caution) {
         this.reservation= new Reservation(dateHeure,caution,paiement,client,activite);
 
     }
-    public void createReservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+    public void createReservation(LocalDateTime dateHeure, double paiement, Client client, Activite activite) {
 
         this.reservation = new Reservation(dateHeure,paiement,client,activite);
     }

@@ -43,5 +43,11 @@ public class Reservation {
     public void addPrestations(PrestationSupplementaire p) {this.prestations.add(p);}
 
 
+    public Integer getId() {
+        return this.id;
+    }
+    public void setId(int id) {
+         this.id=id;
+    }
 }
 
