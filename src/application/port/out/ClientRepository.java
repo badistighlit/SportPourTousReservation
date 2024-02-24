@@ -6,4 +6,6 @@ public interface ClientRepository {
     Client findById(int id);
 
     void save(Client client);
+    Client findByEmail(String email);
+
 }

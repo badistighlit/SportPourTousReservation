@@ -1,11 +1,11 @@
 package domain;
 
 public class Client {
-    private int id;
-    private String nom;
-    private String prenom;
-    private String adresseMail;
-    private String num;
+    final private int id;
+    final private String nom;
+    final private String prenom;
+    final private String adresseMail;
+    final private String num;
 
     public Client(int id, String nom, String prenom, String adresseMail, String num) {
         this.id = id;
@@ -14,6 +14,7 @@ public class Client {
         this.adresseMail = adresseMail;
         this.num = num;
     }
+
     public String getNom (){return this.nom;}
     public String getPrenom (){return this.prenom;}
     public String getAdresseMail (){return this.adresseMail;}
