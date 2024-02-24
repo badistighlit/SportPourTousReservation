@@ -10,7 +10,7 @@ public class Reservation {
     private int id;
     private LocalDateTime dateHeure;
     private double caution;
-    private double paiement;
+    private String paiement;
 
     // Relations avec Client et Activité
     private Client client;
@@ -19,7 +19,7 @@ public class Reservation {
     private List<PrestationSupplementaire> prestations = new ArrayList<>();
     List<Materiel> Materiels = new ArrayList<>();
 
-    public Reservation(LocalDateTime dateHeure, double caution, double paiement, Client client, Activite activite) {
+    public Reservation(LocalDateTime dateHeure, double caution, String paiement, Client client, Activite activite) {
 
         this.dateHeure = dateHeure;
         this.caution = caution;
@@ -28,7 +28,7 @@ public class Reservation {
         this.activite = activite;
     }
     // constructeur sans caution pour les clients qui ont déja khalas
-    public Reservation(LocalDateTime dateHeure,double paiement, Client client, Activite activite) {
+    public Reservation(LocalDateTime dateHeure,String paiement, Client client, Activite activite) {
 
         this.dateHeure = dateHeure;
         this.caution = caution;

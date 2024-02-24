@@ -1,9 +1,11 @@
 package application.services;
 
+import application.port.in.CreateClientCommand;
+import application.port.in.CreateClientUseCase;
 import application.port.out.ClientRepository;
 import domain.Client;
 
-public class ClientService {
+public final class ClientService implements CreateClientUseCase {
 
     private Client client;
     final private ClientRepository clientRepository;
@@ -11,23 +13,29 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public Client createClient(int id, String nom, String prenom, String adresseMail, String num) {
+    @Override
+    public Client createClient(CreateClientCommand createClientCommand) {
 
-        Client client = new Client(id, nom, prenom, adresseMail, num);
+        if (clientRepository.findByEmail(createClientCommand.getAdresseMail()) != null) {
+            throw new IllegalArgumentException("Un compte avec cette adresse e-mail existe déjà");
+        }
 
-        if (client.getNom() == null || client.getNom().isEmpty() ||
-                client.getPrenom() == null || client.getPrenom().isEmpty() ||
-                client.getAdresseMail() == null || client.getAdresseMail().isEmpty() ||
-                client.getNum() == null || client.getNum().isEmpty()) {
+
+        if (createClientCommand.getNom().isBlank() ||
+                createClientCommand.getPrenom().isBlank() ||
+                createClientCommand.getAdresseMail().isBlank() ||
+                createClientCommand.getNum().isBlank()) {
             throw new IllegalArgumentException("Tous les champs sont obligatoires");
         }
 
-        if (clientRepository.findByEmail(client.getAdresseMail()) != null) {
-            throw new IllegalArgumentException("Un compte avec cette adresse e-mail existe déjà");
-        }
+
+        Client client = new Client(0,
+                createClientCommand.getNom(),
+                createClientCommand.getPrenom(),
+                createClientCommand.getAdresseMail(),
+                createClientCommand.getNum());
 
         clientRepository.save(client);
         return client;
     }
-
 }

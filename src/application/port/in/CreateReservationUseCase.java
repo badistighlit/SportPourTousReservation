@@ -1,8 +1,12 @@
 package application.port.in;
 
-import application.services.ReservationService;
+import domain.Materiel;
+import domain.PrestationSupplementaire;
 import domain.Reservation;
 
 public interface CreateReservationUseCase {
-        Reservation createReservation(ReservationService reservationService);
+        Reservation createReservation(ReservationCommand reservationCommand, CreateClientCommand createClientCommand);
+        Reservation createFirnstReservation(ReservationCommand reservationCommand, CreateClientCommand createClientCommand);
+         void setPrestation(PrestationSupplementaire p );
+        void setMateriels(Materiel m);
 }

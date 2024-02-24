@@ -1,9 +1,11 @@
-
-
+import adapter.in.ClientController;
+import application.services.ClientService;
 
 public class Main {
     public static void main(String [] args){
-        System.out.println("ouho");
+
+        ClientService s = new ClientService();
+        ClientController c = new ClientController();
 
     }
 

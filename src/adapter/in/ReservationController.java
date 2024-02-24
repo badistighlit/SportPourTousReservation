@@ -1,22 +1,25 @@
 package adapter.in;
 
-import application.services.ReservationService;
+import application.port.in.CreateClientCommand;
+import application.port.in.CreateReservationUseCase;
+import application.port.in.ReservationCommand;
 import domain.Activite;
 import domain.Client;
 
 import java.time.LocalDateTime;
 
 public class ReservationController {
-    private final ReservationService reservationService;
+    private final CreateReservationUseCase createReservationUseCase;
 
-    public ReservationController(ReservationService reservationService){
-        this.reservationService = reservationService;
+    public ReservationController(CreateReservationUseCase createReservationUseCase){
+        this.createReservationUseCase = createReservationUseCase;
     }
-    public void reserve(LocalDateTime dateHeure, double paiement, Client client, Activite activite, double... caution){
+    public void reserve(LocalDateTime dateHeure, String paiement, Client client, Activite activite, double... caution){
+        CreateClientCommand createClientCommand = new CreateClientCommand(client.getNom(), client.getPrenom(), client.getAdresseMail(), client.getNum());
         if(caution.length > 0){
-            reservationService.createFirnstReservation(dateHeure,paiement,client,activite,caution[0]);
+            createReservationUseCase.createFirnstReservation(new ReservationCommand(dateHeure,paiement,activite,caution[0]),createClientCommand);
         }
-        else reservationService.createReservation(dateHeure,paiement,client,activite);
+        else createReservationUseCase.createReservation(new ReservationCommand(dateHeure,  paiement,activite),createClientCommand);
 
     }
 
