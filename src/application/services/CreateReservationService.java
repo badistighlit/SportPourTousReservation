@@ -3,7 +3,8 @@ package application.services;
 import application.port.in.CreateClientCommand;
 import application.port.in.CreateReservationUseCase;
 import application.port.in.ReservationCommand;
-import application.port.out.ClientRepository;
+import application.port.out.CreateClientPort;
+import application.port.out.CreateReservationPort;
 import application.port.out.ReservationRepository;
 import domain.Materiel;
 import domain.PrestationSupplementaire;
@@ -11,11 +12,11 @@ import domain.Reservation;
 
 public class CreateReservationService implements CreateReservationUseCase {
 
-    private application.port.out.ReservationRepository ReservationRepository;
+    private CreateReservationPort createReservationPort;
     private ClientService clientService;
-    public CreateReservationService(ReservationRepository ReservationRepository, ClientRepository clientRepository){
-        this.ReservationRepository=ReservationRepository;
-        this.clientService = new ClientService(clientRepository);
+    public CreateReservationService(CreateReservationPort createReservationPort, CreateClientPort createClientPort){
+        this.createReservationPort=createReservationPort;
+        this.clientService = new ClientService(createClientPort);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class CreateReservationService implements CreateReservationUseCase {
                                                   reservationCommand.getPaiement(),
                                                   clientService.createClient(createClientCommand),
                                                   reservationCommand.activite);
-        this.ReservationRepository.save(reservation);
+        this.createReservationPort.save(reservation);
         return reservation;
     }
 
@@ -51,7 +52,7 @@ public class CreateReservationService implements CreateReservationUseCase {
                 reservationCommand.getPaiement(),
                 clientService.createClient(createClientCommand),
                 reservationCommand.activite);
-        this.ReservationRepository.save(reservation);
+        this.createReservationPort.save(reservation);
         return reservation;
     }
 

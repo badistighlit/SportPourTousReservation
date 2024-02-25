@@ -2,21 +2,21 @@ package application.services;
 
 import application.port.in.CreateClientCommand;
 import application.port.in.CreateClientUseCase;
-import application.port.out.ClientRepository;
+import application.port.out.CreateClientPort;
 import domain.Client;
 
 public final class ClientService implements CreateClientUseCase {
 
     private Client client;
-    final private ClientRepository clientRepository;
-    public ClientService(ClientRepository clientRepository){
-        this.clientRepository = clientRepository;
+    final private CreateClientPort createClientPort;
+    public ClientService(CreateClientPort createClientPort){
+        this.createClientPort = createClientPort;
     }
 
     @Override
     public Client createClient(CreateClientCommand createClientCommand) {
 
-        if (clientRepository.findByEmail(createClientCommand.getAdresseMail()) != null) {
+        if (createClientPort.findByEmail(createClientCommand.getAdresseMail()) != null) {
             throw new IllegalArgumentException("Un compte avec cette adresse e-mail existe déjà");
         }
 
@@ -35,7 +35,7 @@ public final class ClientService implements CreateClientUseCase {
                 createClientCommand.getAdresseMail(),
                 createClientCommand.getNum());
 
-        clientRepository.save(client);
+        createClientPort.save(client);
         return client;
     }
 }

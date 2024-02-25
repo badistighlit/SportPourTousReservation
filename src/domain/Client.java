@@ -1,7 +1,7 @@
 package domain;
 
 public class Client {
-    final private int id;
+     private int id;
     final private String nom;
     final private String prenom;
     final private String adresseMail;
@@ -19,4 +19,17 @@ public class Client {
     public String getPrenom (){return this.prenom;}
     public String getAdresseMail (){return this.adresseMail;}
     public String getNum() {return this.num;}
+    public void setId(int id) {this.id=id;}
+    public int getId(){return this.id;}
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adresseMail='" + adresseMail + '\'' +
+                ", num='" + num + '\'' +
+                '}';
+    }
 }

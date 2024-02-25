@@ -46,8 +46,39 @@ public class Reservation {
     public Integer getId() {
         return this.id;
     }
+
+    public String getPaiement() {
+        return paiement;
+    }
+
+    public LocalDateTime getDateHeure() {
+        return dateHeure;
+    }
+
+    public List<Materiel> getMateriels() {
+        return Materiels;
+    }
+
+    public Activite getActivite() {
+        return activite;
+    }
+
     public void setId(int id) {
          this.id=id;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", dateHeure=" + dateHeure +
+                ", caution=" + caution +
+                ", paiement='" + paiement + '\'' +
+                ", client=" + client +
+                ", activite=" + activite +
+                ", prestations=" + prestations +
+                ", Materiels=" + Materiels +
+                '}';
     }
 }
 

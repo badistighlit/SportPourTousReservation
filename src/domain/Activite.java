@@ -11,7 +11,13 @@ public class Activite {
     public String getNom (){return this.nom;}
     public String getDescription(){return this.description;}
 
-
-
+    @Override
+    public String toString() {
+        return "Activite{" +
+                "id='" + id + '\'' +
+                ", nom='" + nom + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
     // Getters, setters et autres méthodes
 }
