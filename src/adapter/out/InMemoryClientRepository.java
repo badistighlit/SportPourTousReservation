@@ -48,4 +48,8 @@ public class InMemoryClientRepository implements CreateClientPort, LoadCLientPor
         }
 
     }
+
+    public ArrayList<Client> getRegistry() {
+        return registry;
+    }
 }

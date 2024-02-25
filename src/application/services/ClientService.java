@@ -38,4 +38,8 @@ public final class ClientService implements CreateClientUseCase {
         createClientPort.save(client);
         return client;
     }
+
+    public Client getClient(String mail ){
+        return this.createClientPort.findByEmail(mail);
+    }
 }

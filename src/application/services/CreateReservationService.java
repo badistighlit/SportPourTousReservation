@@ -30,14 +30,15 @@ public class CreateReservationService implements CreateReservationUseCase {
 
     @Override
     public Reservation createReservation(ReservationCommand reservationCommand, CreateClientCommand createClientCommand) {
-        if (createClientCommand == null || reservationCommand.paiement.isBlank() || reservationCommand.caution == 0.0)  {
+        if (createClientCommand == null || reservationCommand.paiement.isBlank() )  {
             throw new IllegalArgumentException("Tous les champs sont obligatoires");
         }
+
 
         Reservation reservation = new Reservation(reservationCommand.getDateHeure(),
                                                   reservationCommand.getCaution(),
                                                   reservationCommand.getPaiement(),
-                                                  clientService.createClient(createClientCommand),
+                                                  clientService.getClient(createClientCommand.getAdresseMail()),
                                                   reservationCommand.activite);
         this.createReservationPort.save(reservation);
         this.eventDispatcher.dispacth(new ReservationEvent(reservation));
@@ -47,6 +48,7 @@ public class CreateReservationService implements CreateReservationUseCase {
     @Override
     public Reservation createFirnstReservation(ReservationCommand reservationCommand, CreateClientCommand createClientCommand) {
         if (createClientCommand == null || reservationCommand.paiement.isBlank()
+                || reservationCommand.caution == 0.0
                 )  {
             throw new IllegalArgumentException("Tous les champs sont obligatoires");
         }
