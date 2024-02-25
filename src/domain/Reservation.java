@@ -63,6 +63,8 @@ public class Reservation {
         return activite;
     }
 
+    public Client getClient() { return client; }
+
     public void setId(int id) {
          this.id=id;
     }
