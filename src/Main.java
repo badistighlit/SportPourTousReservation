@@ -1,3 +1,4 @@
+import adapter.in.ClientController;
 import adapter.in.ReservationController;
 import adapter.out.InMemoryClientRepository;
 import adapter.out.InMemoryReservationRepository;
@@ -5,6 +6,7 @@ import adapter.out.LogNotifications;
 import application.events.ClientCreatedEvent;
 import application.events.ReservationEvent;
 import application.services.ClientCreatedEventHandler;
+import application.services.ClientService;
 import application.services.CreateReservationService;
 import application.services.ReservationCreatedEventHandler;
 import domain.*;
@@ -48,11 +50,14 @@ public class Main {
         var notifications = new LogNotifications();
         var reservationCreatedEventHandler = new ReservationCreatedEventHandler(notifications);
 
+
         InMemoryReservationRepository reservationRepository = new InMemoryReservationRepository();
         InMemoryClientRepository clientRepository = new InMemoryClientRepository();
         CreateReservationService reservationService = new CreateReservationService(reservationRepository, clientRepository, eventDispatcher);
         ReservationController reservationController = new ReservationController(reservationService);
-
+        ClientService cs = new ClientService(clientRepository);
+        ClientController c = new ClientController(cs);
+        c.inscription(0,"tighlit","badis","badis@gmail","066666");
         eventDispatcher.register(ReservationEvent.class, reservationCreatedEventHandler);
 
         // Créer une liste d'activités prédéfinies
