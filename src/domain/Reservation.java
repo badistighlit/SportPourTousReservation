@@ -68,6 +68,27 @@ public class Reservation {
     public void setId(int id) {
          this.id=id;
     }
+    public Double getPrice() {
+        double totalPrice = 0.0;
+
+        // Calculate the total price of prestations supplémentaires
+        for (PrestationSupplementaire prestation : this.prestations) {
+            totalPrice += prestation.getPrix();
+        }
+
+        // Calculate the total price of materiels
+
+
+        return totalPrice;
+    }
+    public Double getCaution(){
+        double caution=0.0;
+        for (Materiel materiel : this.Materiels) {
+            caution += materiel.getCaution();  // Assuming the caution is the price for materiels
+        }
+        return caution;
+    }
+
 
     @Override
     public String toString() {

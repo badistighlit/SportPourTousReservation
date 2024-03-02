@@ -1,5 +1,6 @@
 package application.services;
 
+import application.ClientEmailAlreadyExistsException;
 import application.port.in.CreateClientCommand;
 import application.port.in.CreateClientUseCase;
 import application.port.out.CreateClientPort;
@@ -17,7 +18,7 @@ public final class ClientService implements CreateClientUseCase {
     public Client createClient(CreateClientCommand createClientCommand) {
 
         if (createClientPort.findByEmail(createClientCommand.getAdresseMail()) != null) {
-            throw new IllegalArgumentException("Un compte avec cette adresse e-mail existe déjà");
+            throw new ClientEmailAlreadyExistsException("un compte existe déja avec cette adresse mail.");
         }
 
 

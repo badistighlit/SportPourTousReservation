@@ -19,29 +19,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    //LocalDateTime dateHeure, String paiement, Client client, Activite activite, double... caution)
-  /*  public static void main(String [] args){
 
-        var eventDispatcher = DefaultEventDispatcher.<ReservationEvent>create(); // Définir explicitement le type de l'événement comme ReservationEvent
-        var notifications = new LogNotifications();
-        var reservationCreatedEventHandler = new ReservationCreatedEventHandler(notifications);
-
-        InMemoryReservationRepository p = new InMemoryReservationRepository() ;
-        InMemoryClientRepository h = new InMemoryClientRepository();
-        CreateReservationService s = new CreateReservationService(p,h, eventDispatcher);
-        ReservationController c = new ReservationController(s);
-
-        eventDispatcher.register(ReservationEvent.class, reservationCreatedEventHandler);
-
-        Reservation sp = c.reserve(LocalDateTime.now(),"CB", new Client(23,"badis","tighlit","badis@gmail","06666"),new Activite("foot","foot"), 2.0);
-
-        Reservation ss = c.reserve(LocalDateTime.now(),"CB", new Client(23,"badis","tighlit","badis@gmail","0666996"),new Activite("foot","foot"));
-        System.out.println(h.getRegistry());
-        System.out.println(p.getAll());
-
-
-    }
-*/
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -60,7 +38,6 @@ public class Main {
         c.inscription(0,"tighlit","badis","badis@gmail","066666");
         eventDispatcher.register(ReservationEvent.class, reservationCreatedEventHandler);
 
-        // Créer une liste d'activités prédéfinies
         List<Activite> activitesDisponibles = new ArrayList<>();
         activitesDisponibles.add(new Activite("Football", "Jeu de ballon entre deux équipes."));
         activitesDisponibles.add(new Activite("Natation", "Activité aquatique dans une piscine."));
@@ -70,13 +47,13 @@ public class Main {
         System.out.println("Bienvenue sur notre service de réservation d'activités!");
         System.out.println("----------------------------");
 
-        // Demander à l'utilisateur s'il a déjà un compte
+
         System.out.print("Avez-vous déjà un compte? (O/N) : ");
         String reponseCompte = scanner.next();
 
         Client client;
         if ("O".equalsIgnoreCase(reponseCompte)) {
-            // L'utilisateur a déjà un compte, demandez ses informations
+
             System.out.print("Veuillez saisir votre email : ");
             String mail = scanner.next();
             client = clientRepository.findByEmail(mail);
@@ -86,7 +63,7 @@ public class Main {
                 return;
             }
         } else {
-            // L'utilisateur n'a pas de compte, demandez-lui de créer un compte
+
             System.out.print("Veuillez saisir votre nom : ");
             String nomClient = scanner.next();
             System.out.print("Veuillez saisir votre prénom : ");
@@ -102,24 +79,20 @@ public class Main {
             System.out.println("Compte créé avec succès! Votre identifiant est : " + client.getId());
         }
 
-        // Proposez des activités à l'utilisateur
+
         System.out.println("Voici quelques activités disponibles :");
 
-        // Affichez les activités avec des numéros
+
         for (int i = 0; i < activitesDisponibles.size(); i++) {
             System.out.println((i + 1) + ". " + activitesDisponibles.get(i).getNom());
         }
 
-        // Demandez à l'utilisateur de choisir une activité
         System.out.print("Veuillez saisir le numéro de l'activité que vous souhaitez réserver : ");
         int numeroActivite = scanner.nextInt();
 
-        // Vérifiez si le numéro de l'activité est valide
         if (numeroActivite > 0 && numeroActivite <= activitesDisponibles.size()) {
-            // Récupérez l'activité sélectionnée par l'utilisateur
             Activite activiteSelectionnee = activitesDisponibles.get(numeroActivite - 1);
 
-            // Demandez à l'utilisateur de saisir les détails de la réservation
             System.out.println("Vous avez choisi l'activité : " + activiteSelectionnee.getNom());
             System.out.print("Veuillez saisir la date et l'heure de la réservation (AAAA-MM-JJTHH:MM) veuillez respecter ce format: ");
             String dateHeureStr = scanner.next();
@@ -127,10 +100,8 @@ public class Main {
             System.out.print("Veuillez saisir le mode de paiement : ");
             String modePaiement = scanner.next();
 
-            // Créer la réservation
             Reservation reservation = reservationController.reserve(dateHeure, modePaiement, client, activiteSelectionnee);
 
-            // Proposez des prestations supplémentaires à l'utilisateur
             System.out.print("Souhaitez-vous ajouter des prestations supplémentaires? (O/N) : ");
             String reponsePrestations = scanner.next();
 
@@ -143,12 +114,12 @@ public class Main {
                 int numeroPrestation = scanner.nextInt();
 
                 if (numeroPrestation == 0) {
-                    break;  // L'utilisateur a terminé de sélectionner des prestations
+                    break;
                 }
 
                 PrestationSupplementaire prestationSelectionnee = null;
 
-                // Vérifiez le choix de l'utilisateur
+
                 switch (numeroPrestation) {
                     case 1:
                         prestationSelectionnee = new PlateauRepas("Plateau Repas", "Nourriture pour votre réservation", 20.0);
@@ -165,17 +136,16 @@ public class Main {
                     System.out.println("Prestation ajoutée : " + prestationSelectionnee.getNom());
                 }
 
-                // Demandez à l'utilisateur s'il souhaite ajouter une autre prestation
+
                 System.out.print("Souhaitez-vous ajouter une autre prestation? (O/N) : ");
                 reponsePrestations = scanner.next();
             }
 
-            // Ajoutez les prestations sélectionnées à la réservation
+
             for (PrestationSupplementaire prestation : prestationsSelectionnees) {
                 reservation.addPrestations(prestation);
             }
 
-            // Proposez la location de matériel ou d'un terrain
             System.out.print("Souhaitez-vous louer du matériel ou un terrain? (O/N) : ");
             String reponseLocation = scanner.next();
 
@@ -187,7 +157,7 @@ public class Main {
                 int numeroLocation = scanner.nextInt();
 
                 if (numeroLocation == 0) {
-                    break;  // L'utilisateur a terminé la location
+                    break;
                 }
 
                 // Ajoutez la location de matériel ou de terrain à la réservation
@@ -214,7 +184,7 @@ public class Main {
                         String adresseTerrain = scanner.next();
 
                         Terrain terrain = new Terrain(typeTerrain, numeroTerrain, adresseTerrain);
-                        // ... (ajoutez la logique pour gérer la location de terrain)
+
                         System.out.println("Terrain ajouté à la réservation : " + terrain.getType());
                         break;
 
@@ -222,15 +192,17 @@ public class Main {
                         System.out.println("Numéro d'option non valide. Veuillez saisir un numéro valide.");
                 }
 
-                // Demandez à l'utilisateur s'il souhaite ajouter une autre location
+
                 System.out.print("Souhaitez-vous ajouter une autre location? (O/N) : ");
                 reponseLocation = scanner.next();
             }
 
-            // Imprimer les informations de la réservation
             System.out.println("Réservation créée avec succès!");
             System.out.println("Informations de la réservation :");
             System.out.println(reservation);
+            System.out.println("Prix de la réservation :" +reservation.getPrice());
+            System.out.println("caution total de la réservation :" +reservation.getCaution());
+
 
         } else {
             System.out.println("Numéro d'activité non valide. Veuillez saisir un numéro valide.");
