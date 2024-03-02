@@ -19,9 +19,17 @@ Suivez les instructions à l'écran pour créer un compte, choisir une activité
 # Structure du Projet HEXAGONAL
 
 **domain:** Contient les classes métier telles que Client, Activite, Materiel, Terrain, et Reservation.
+
+
 **adapter: **Gère les adaptateurs pour les entrées et sorties. Les classes ClientController et ReservationController gèrent les interactions utilisateur,et les InMemoryClientRepository, InMemoryReservationRepository gère le stockage.
+
+
 **application:** Inclut les services métier tels que ClientService et CreateReservationService, les ports d'entrées et sorties ainsi que les events.
+
+
 **kernel:** Comprend la classe DefaultEventDispatcher pour la gestion des événements.
+
+
 #Fonctionnalités Principales
 1. Création de compte client.
 1. Réservation d'activités.
