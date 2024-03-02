@@ -2,10 +2,10 @@
 
 Bienvenue sur notre service de SPORT POUR TOUS! Ce projet permet aux utilisateurs de réserver des activités, de choisir des prestations supplémentaires, et de louer du matériel ou un terrain.
 
-#Prérequis
+# Prérequis
 Assurez-vous d'avoir Java installé sur votre machine.
 
-#Comment exécuter
+# Comment exécuter
 Clonez le projet sur votre machine locale.
 Naviguez vers le répertoire du projet.
 Exécutez le fichier Main.java qui contient la classe principale du programme.
@@ -16,7 +16,7 @@ java Main.Java
 
 Suivez les instructions à l'écran pour créer un compte, choisir une activité, spécifier la date et l'heure de la réservation, sélectionner des prestations supplémentaires, et éventuellement louer du matériel ou un terrain.
 
-#Structure du Projet HEXAGONAL
+# Structure du Projet HEXAGONAL
 
 **domain:** Contient les classes métier telles que Client, Activite, Materiel, Terrain, et Reservation.
 **adapter: **Gère les adaptateurs pour les entrées et sorties. Les classes ClientController et ReservationController gèrent les interactions utilisateur,et les InMemoryClientRepository, InMemoryReservationRepository gère le stockage.
@@ -28,7 +28,7 @@ Suivez les instructions à l'écran pour créer un compte, choisir une activité
 1. Ajout de prestations supplémentaires.
 1. Location de matériel ou de terrain.
 
-#Remarques
+# Remarques
 Le projet utilise une implémentation mémoire pour stocker les informations des clients et des réservations (InMemoryClientRepository et InMemoryReservationRepository).
 Les événements tels que la création de réservations sont gérés par DefaultEventDispatcher.
 N'oubliez pas de fournir une adresse e-mail valide lors de la création du compte pour éviter tout problème lors de la recherche de comptes existants.
